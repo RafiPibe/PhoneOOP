@@ -84,7 +84,7 @@ class MobilePhone extends Device {
 
     // Implementing doSomething method for inheritance
     public function doSomething() {
-        print("Hello World from {$this->brand}, {$this->name}!");
+        echo "\nHello World from {$this->brand}, {$this->name}!\n";
     }
 }
 
@@ -129,6 +129,16 @@ class MobileInventory {
         }
     }
 
+    public function callDoSomething($name) {
+        foreach ($this->inventory as $phone) {
+            if ($phone->getName() === $name) {
+                $phone->doSomething();
+                return true;
+            }
+        }
+        return false; // Phone not found
+    }
+
     // getter inventory
     public function getInventory() {
         return $this->inventory;
@@ -165,7 +175,8 @@ while (true) {
     echo "2. Delete Phone\n";
     echo "3. Update Phone Data\n";
     echo "4. Display Inventory\n";
-    echo "5. Exit\n";
+    echo "5. Call Message From Each Phone\n";
+    echo "6. Exit\n";
     echo "Select an option: ";
 
     $choice = trim(fgets(STDIN)); // Read user input
@@ -220,6 +231,17 @@ while (true) {
             break;
 
         case '5':
+            echo "Enter the name of the phone to call: ";
+            $callName = trim(fgets(STDIN));
+
+            if ($inventory->callDoSomething($callName)) {
+                echo "\n";
+            } else {
+                echo "Phone not found in inventory.\n";
+            }
+            break;
+
+        case '6':
             echo "Exiting program.\n\n";
             exit;
 
